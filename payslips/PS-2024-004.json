@@ -1,0 +1,172 @@
+{
+  "payslip_id": "PS-2024-004",
+  "generated_at": "2026-03-02T12:28:53",
+  "employee": {
+    "id": "EMP006",
+    "name": "James Liu",
+    "employment_type": "full_time"
+  },
+  "award": {
+    "code": "MA000004",
+    "name": "General Retail Industry Award 2020"
+  },
+  "pay_period": {
+    "start": "2024-06-10",
+    "end": "2024-06-23",
+    "type": "fortnightly"
+  },
+  "shifts": [
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2024-06-10",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2024-06-11",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2024-06-12",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2024-06-13",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2024-06-14",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 57.78,
+      "ordinary_pay": 462.24,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 462.24,
+      "date": "2024-06-17",
+      "day_type": "public_holiday",
+      "penalty_applied": "225%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2024-06-18",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2024-06-19",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2024-06-20",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2024-06-21",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    }
+  ],
+  "calculated": {
+    "total_ordinary_pay": 2311.2,
+    "total_overtime_pay": 0.0,
+    "total_allowances": 0,
+    "gross_pay": 2311.2
+  },
+  "paid": {
+    "gross_pay": 2054.4,
+    "notes": "ERROR — public holiday 2024-06-17 (Queen's Birthday) paid at ordinary weekday rate"
+  },
+  "audit": {
+    "calculated_gross": 2311.2,
+    "paid_gross": 2054.4,
+    "variance": -256.8,
+    "variance_pct": -11.11,
+    "status": "underpaid",
+    "issues": [
+      "Public holiday penalty not applied on 2024-06-17 (8.0 hrs)",
+      "Paid $25.68/hr instead of $57.78/hr for public holiday",
+      "Underpayment on public holiday: $256.8"
+    ]
+  }
+}

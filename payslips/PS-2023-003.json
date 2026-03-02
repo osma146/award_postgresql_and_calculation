@@ -1,0 +1,171 @@
+{
+  "payslip_id": "PS-2023-003",
+  "generated_at": "2026-03-02T12:28:53",
+  "employee": {
+    "id": "EMP002",
+    "name": "Mark Johnson",
+    "employment_type": "full_time"
+  },
+  "award": {
+    "code": "MA000004",
+    "name": "General Retail Industry Award 2020"
+  },
+  "pay_period": {
+    "start": "2023-11-06",
+    "end": "2023-11-17",
+    "type": "fortnightly"
+  },
+  "shifts": [
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-06",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-07",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-08",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-09",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-10",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-13",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-14",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-15",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-16",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.68,
+      "ordinary_pay": 205.44,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 205.44,
+      "date": "2023-11-17",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    }
+  ],
+  "calculated": {
+    "total_ordinary_pay": 2054.4,
+    "total_overtime_pay": 0.0,
+    "total_allowances": 0,
+    "gross_pay": 2054.4
+  },
+  "paid": {
+    "gross_pay": 2023.2,
+    "notes": "ERROR — paid at Level 2 rate ($25.29/hr) instead of Level 3 ($25.68/hr)"
+  },
+  "audit": {
+    "calculated_gross": 2054.4,
+    "paid_gross": 2023.2,
+    "variance": -31.2,
+    "variance_pct": -1.52,
+    "status": "underpaid",
+    "issues": [
+      "Wrong classification rate applied: paid $25.29/hr, correct rate is $25.68/hr",
+      "Employee is classified as Level 3 but system recorded as Level 2"
+    ]
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "payslip_id": "PS-2024-002",
+  "generated_at": "2026-03-02T12:28:53",
+  "employee": {
+    "id": "EMP004",
+    "name": "Tom Baker",
+    "employment_type": "full_time"
+  },
+  "award": {
+    "code": "MA000004",
+    "name": "General Retail Industry Award 2020"
+  },
+  "pay_period": {
+    "start": "2024-03-04",
+    "end": "2024-03-17",
+    "type": "fortnightly"
+  },
+  "shifts": [
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2024-03-04",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2024-03-05",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2024-03-06",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2024-03-07",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2024-03-08",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 37.935,
+      "ordinary_pay": 303.48,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 303.48,
+      "date": "2024-03-09",
+      "day_type": "saturday",
+      "penalty_applied": "150%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 50.58,
+      "ordinary_pay": 404.64,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 404.64,
+      "date": "2024-03-10",
+      "day_type": "sunday",
+      "penalty_applied": "200%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2024-03-11",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2024-03-12",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2024-03-13",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    }
+  ],
+  "calculated": {
+    "total_ordinary_pay": 2326.68,
+    "total_overtime_pay": 0.0,
+    "total_allowances": 0,
+    "gross_pay": 2326.68
+  },
+  "paid": {
+    "gross_pay": 2124.36,
+    "notes": "ERROR — Sunday worked 2024-03-10 paid at ordinary weekday rate (no 200% penalty applied)"
+  },
+  "audit": {
+    "calculated_gross": 2326.68,
+    "paid_gross": 2124.36,
+    "variance": -202.32,
+    "variance_pct": -8.7,
+    "status": "underpaid",
+    "issues": [
+      "Sunday penalty not applied on 2024-03-10 (8.0 hrs)",
+      "Paid $25.29/hr instead of $50.58/hr for Sunday",
+      "Underpayment on Sunday shift: $202.32"
+    ]
+  }
+}

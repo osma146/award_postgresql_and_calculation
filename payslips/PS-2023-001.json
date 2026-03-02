@@ -1,0 +1,142 @@
+{
+  "payslip_id": "PS-2023-001",
+  "generated_at": "2026-03-02T12:28:53",
+  "employee": {
+    "id": "EMP001",
+    "name": "Jane Smith",
+    "employment_type": "full_time"
+  },
+  "award": {
+    "code": "MA000004",
+    "name": "General Retail Industry Award 2020"
+  },
+  "pay_period": {
+    "start": "2023-09-04",
+    "end": "2023-09-17",
+    "type": "fortnightly"
+  },
+  "shifts": [
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2023-09-04",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2023-09-05",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2023-09-07",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 6.0,
+      "ordinary_rate": 37.935,
+      "ordinary_pay": 227.61,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 227.61,
+      "date": "2023-09-09",
+      "day_type": "saturday",
+      "penalty_applied": "150%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2023-09-11",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2023-09-12",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 8.0,
+      "ordinary_rate": 25.29,
+      "ordinary_pay": 202.32,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 202.32,
+      "date": "2023-09-14",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 6.0,
+      "ordinary_rate": 37.935,
+      "ordinary_pay": 227.61,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 227.61,
+      "date": "2023-09-16",
+      "day_type": "saturday",
+      "penalty_applied": "150%",
+      "allowances_detail": []
+    }
+  ],
+  "calculated": {
+    "total_ordinary_pay": 1669.14,
+    "total_overtime_pay": 0.0,
+    "total_allowances": 0,
+    "gross_pay": 1669.14
+  },
+  "paid": {
+    "gross_pay": 1669.14,
+    "notes": "Correct — Level 2 rate applied, Saturday penalty included"
+  },
+  "audit": {
+    "calculated_gross": 1669.14,
+    "paid_gross": 1669.14,
+    "variance": 0.0,
+    "variance_pct": 0.0,
+    "status": "correct",
+    "issues": []
+  }
+}

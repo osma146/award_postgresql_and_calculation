@@ -1,0 +1,119 @@
+{
+  "payslip_id": "PS-2024-001",
+  "generated_at": "2026-03-02T12:28:53",
+  "employee": {
+    "id": "EMP003",
+    "name": "Sarah Chen",
+    "employment_type": "part_time"
+  },
+  "award": {
+    "code": "MA000004",
+    "name": "General Retail Industry Award 2020"
+  },
+  "pay_period": {
+    "start": "2024-02-05",
+    "end": "2024-02-18",
+    "type": "fortnightly"
+  },
+  "shifts": [
+    {
+      "ordinary_hours": 6.0,
+      "ordinary_rate": 24.73,
+      "ordinary_pay": 148.38,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 148.38,
+      "date": "2024-02-05",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 6.0,
+      "ordinary_rate": 24.73,
+      "ordinary_pay": 148.38,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 148.38,
+      "date": "2024-02-07",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 5.0,
+      "ordinary_rate": 37.095,
+      "ordinary_pay": 185.48,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 185.48,
+      "date": "2024-02-10",
+      "day_type": "saturday",
+      "penalty_applied": "150%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 6.0,
+      "ordinary_rate": 24.73,
+      "ordinary_pay": 148.38,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 148.38,
+      "date": "2024-02-12",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 6.0,
+      "ordinary_rate": 24.73,
+      "ordinary_pay": 148.38,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 148.38,
+      "date": "2024-02-14",
+      "day_type": "weekday_ordinary",
+      "penalty_applied": "100%",
+      "allowances_detail": []
+    },
+    {
+      "ordinary_hours": 5.0,
+      "ordinary_rate": 37.095,
+      "ordinary_pay": 185.48,
+      "overtime_hours": 0.0,
+      "overtime_pay": 0.0,
+      "allowances_total": 0,
+      "shift_gross": 185.48,
+      "date": "2024-02-17",
+      "day_type": "saturday",
+      "penalty_applied": "150%",
+      "allowances_detail": []
+    }
+  ],
+  "calculated": {
+    "total_ordinary_pay": 964.48,
+    "total_overtime_pay": 0.0,
+    "total_allowances": 0,
+    "gross_pay": 964.48
+  },
+  "paid": {
+    "gross_pay": 986.3,
+    "notes": "ERROR — paid at Level 2 rate ($25.29/hr) instead of Level 1 ($24.73/hr)"
+  },
+  "audit": {
+    "calculated_gross": 964.48,
+    "paid_gross": 986.3,
+    "variance": 21.82,
+    "variance_pct": 2.26,
+    "status": "overpaid",
+    "issues": [
+      "Wrong classification rate applied: paid $25.29/hr, correct rate is $24.73/hr",
+      "Employee is Level 1 but payroll system had Level 2 on file"
+    ]
+  }
+}

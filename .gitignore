@@ -1,0 +1,8 @@
+# Never push these to Git
+.env
+.claude/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+finder/output.json
