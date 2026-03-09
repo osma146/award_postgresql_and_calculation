@@ -75,6 +75,10 @@ BackendCalculation/
 │   ├── PS-2024-003.json        # Priya Patel — underpaid (overtime + allowance missing)
 │   └── PS-2024-004.json        # James Liu — underpaid (public holiday not applied)
 │
+├── docs/
+│   ├── api-user-guide.md       # Field-by-field API usage guide (for API consumers)
+│   └── react-guide.md          # React hooks, components, and integration examples
+│
 ├── example.py                  # Example pay calculation scenarios
 ├── requirements.txt            # Python dependencies
 ├── .env.example                # Template for environment variables
@@ -405,6 +409,15 @@ curl -X POST -H "X-API-Key: your-key" -H "Content-Type: application/json" \
   "https://api.yourdomain.com/payslips/check"
 ```
 
+### Further Reading
+
+| Guide | Description |
+|---|---|
+| [api/README.md](api/README.md) | Full endpoint reference with request/response examples |
+| [docs/api-user-guide.md](docs/api-user-guide.md) | Field-by-field guide for API consumers — what to send and what you get back |
+| [docs/react-guide.md](docs/react-guide.md) | React hooks, components, and a ready-to-use integration |
+| [db/README.md](db/README.md) | Database setup, annual maintenance checklist, and key rotation |
+
 ---
 
 ## Running the Example
@@ -477,7 +490,8 @@ WHERE a.published_year = 2022 AND b.published_year = 2024
 | `psycopg2-binary` | 2.9.10 | PostgreSQL driver |
 | `python-dotenv` | 1.0.1 | Load credentials from `.env` |
 | `sqlalchemy` | 2.0.36 | ORM (used by API layer) |
-| `fastapi` | 0.115.6 | REST API framework (coming soon) |
+| `slowapi` | 0.1.9 | Rate limiting middleware for FastAPI |
+| `fastapi` | 0.115.6 | REST API framework |
 | `uvicorn` | 0.32.1 | ASGI server for FastAPI |
 
 Install all: `pip install -r requirements.txt`
@@ -504,5 +518,10 @@ Updated annually each July following the Annual Wage Review.
 - [x] Payslip generation with real Award rates
 - [x] Payslip checker — detects overpay / underpay / correct
 - [x] FastAPI REST endpoints with API key auth, CORS, and rate limiting
-- [ ] Historical comparison API
-- [ ] React frontend integration
+- [x] Pay calculator API (single shift + pay period)
+- [x] Payslip generator API (from shift inputs + live DB rates)
+- [x] Historical comparison API (year-on-year rate comparison)
+- [x] Live autocomplete search (per-keystroke award + classification)
+- [x] API consumer guide (field-by-field request/response reference)
+- [x] React integration guide (hooks, components, example app)
+- [ ] React frontend (build the actual UI)
