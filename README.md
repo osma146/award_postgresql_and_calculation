@@ -56,7 +56,8 @@ BackendCalculation/
 │       ├── health.py           # GET /health (no auth)
 │       ├── awards.py           # GET /awards, /awards/{code}/classifications, etc.
 │       ├── finder.py           # GET /finder
-│       └── payslips.py         # POST /payslips/check
+│       ├── payslips.py         # POST /payslips/check
+│       └── autocomplete.py     # GET /autocomplete/awards and /classifications (typeahead)
 │
 ├── finder/
 │   ├── finder.py               # Searches DB and writes resolved Award data to output.json
@@ -345,6 +346,25 @@ X-API-Key: your-generated-key-here
 | `GET` | `/awards/{code}/allowances?date=2024-03-15` | Allowances for an award |
 | `GET` | `/finder?award=retail&classification=level+2&date=2024-03-15` | Full data bundle in one call |
 | `POST` | `/payslips/check` | Audit a payslip JSON for overpay/underpay |
+| `GET` | `/autocomplete/awards?q=ret` | Live award name search (per keystroke) |
+| `GET` | `/autocomplete/classifications?award=MA000004&q=lev` | Live classification search (per keystroke) |
+
+### Autocomplete / Typeahead
+
+The autocomplete endpoints are designed to power a live search bar — call them on every keystroke.
+Results are ranked by closeness to what the user has typed so far:
+
+- **1–2 chars** typed → prefix match only (fast, low noise)
+- **3+ chars** typed → prefix + fuzzy combined (handles typos like `retial` → Retail Award)
+
+**Typical two-step search bar flow:**
+```
+User types in award box  →  GET /autocomplete/awards?q={input}              → dropdown
+User selects an award    →  store award_code (e.g. MA000004)
+User types in class box  →  GET /autocomplete/classifications
+                               ?award=MA000004&q={input}                     → dropdown
+User selects a class     →  you have the hourly rate and classification level
+```
 
 ### Security
 
@@ -353,7 +373,7 @@ X-API-Key: your-generated-key-here
 | **Cloudflare** | HTTPS termination, DDoS protection, WAF |
 | **API Key** | `X-API-Key` header required on all routes |
 | **CORS** | Only your domain(s) in `ALLOWED_ORIGINS` can call the API |
-| **Rate limiting** | 60 req/min (awards/finder), 30 req/min (finder/payslips) per IP |
+| **Rate limiting** | 60 req/min (awards), 30 req/min (finder/payslips), 120 req/min (autocomplete) per IP |
 | **Input validation** | All query params validated by FastAPI/Pydantic before hitting the DB |
 | **Parameterised queries** | All SQL uses `%s` placeholders — no SQL injection possible |
 
@@ -363,8 +383,12 @@ X-API-Key: your-generated-key-here
 # Health check (no key needed)
 curl https://api.yourdomain.com/health
 
-# Search awards
-curl -H "X-API-Key: your-key" "https://api.yourdomain.com/awards?search=retail"
+# Live autocomplete — award name as user types
+curl -H "X-API-Key: your-key" "https://api.yourdomain.com/autocomplete/awards?q=ret"
+
+# Live autocomplete — classification within a chosen award
+curl -H "X-API-Key: your-key" \
+  "https://api.yourdomain.com/autocomplete/classifications?award=MA000004&q=lev"
 
 # Full finder bundle
 curl -H "X-API-Key: your-key" \

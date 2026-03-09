@@ -18,7 +18,7 @@ from slowapi.errors import RateLimitExceeded
 from dotenv import load_dotenv
 
 from api.limiter import limiter
-from api.routes import health, awards, finder, payslips
+from api.routes import health, awards, finder, payslips, autocomplete
 
 load_dotenv(dotenv_path=Path(__file__).parent.parent / ".env")
 
@@ -65,3 +65,4 @@ app.include_router(health.router)
 app.include_router(awards.router)
 app.include_router(finder.router)
 app.include_router(payslips.router)
+app.include_router(autocomplete.router)

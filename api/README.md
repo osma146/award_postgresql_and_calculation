@@ -331,12 +331,92 @@ curl -X POST \
 
 ---
 
+### `GET /autocomplete/awards`
+
+Live award name search — call on every keystroke. Returns top 10 closest matches
+ranked by how well they match what the user has typed so far.
+
+**Query parameters:**
+
+| Parameter | Required | Description |
+|---|---|---|
+| `q` | Yes | Partial award name (1+ characters) |
+| `top` | No | Max results (default 10, max 20) |
+
+**Behaviour by query length:**
+- **1–2 chars** — prefix match only (`retail` starts with `re`) — fast, low noise
+- **3+ chars** — prefix match + fuzzy combined, ranked by closeness score
+
+**Example — wire this to your input's `onChange`:**
+```bash
+# User typed "r"
+curl -H "X-API-Key: your-key" "https://api.yourdomain.com/autocomplete/awards?q=r"
+
+# User typed "re"
+curl -H "X-API-Key: your-key" "https://api.yourdomain.com/autocomplete/awards?q=re"
+
+# User typed "ret" (fuzzy kicks in — typo "reta" also works)
+curl -H "X-API-Key: your-key" "https://api.yourdomain.com/autocomplete/awards?q=ret"
+```
+
+**Response:**
+```json
+[
+  { "award_code": "MA000004", "name": "General Retail Industry Award 2020",     "score": 0.9 },
+  { "award_code": "MA000084", "name": "Vehicle ... Retail Award 2020",          "score": 0.45 },
+  { "award_code": "MA000059", "name": "Retail Award 2010",                      "score": 0.36 }
+]
+```
+
+---
+
+### `GET /autocomplete/classifications`
+
+Live classification search within a chosen award. Typically used in step 2 after
+the user has selected an award from the autocomplete dropdown.
+
+**Query parameters:**
+
+| Parameter | Required | Description |
+|---|---|---|
+| `award` | Yes | Award code from step 1 (e.g. `MA000004`) |
+| `q` | Yes | Partial classification name or level (1+ characters) |
+| `top` | No | Max results (default 10, max 20) |
+
+**Example:**
+```bash
+# User selected MA000004, now typing "lev"
+curl -H "X-API-Key: your-key" \
+  "https://api.yourdomain.com/autocomplete/classifications?award=MA000004&q=lev"
+```
+
+**Response:**
+```json
+[
+  { "classification_fixed_id": 12341, "classification": "Retail Employee Level 1", "classification_level": 1, "calculated_rate_hourly": 19.49 },
+  { "classification_fixed_id": 12342, "classification": "Retail Employee Level 2", "classification_level": 2, "calculated_rate_hourly": 21.38 },
+  { "classification_fixed_id": 12343, "classification": "Retail Employee Level 3", "classification_level": 3, "calculated_rate_hourly": 22.18 }
+]
+```
+
+**Typical frontend flow:**
+```
+User types in award box  →  GET /autocomplete/awards?q={input}     →  show dropdown
+User selects an award    →  store award_code
+User types in class box  →  GET /autocomplete/classifications
+                              ?award={award_code}&q={input}         →  show dropdown
+User selects a class     →  you now have hourly rate + level
+```
+
+---
+
 ## Rate Limits
 
 | Endpoint group | Limit |
 |---|---|
 | `/awards/*`, `/health` | 60 requests per minute per IP |
 | `/finder`, `/payslips/check` | 30 requests per minute per IP |
+| `/autocomplete/*` | 120 requests per minute per IP |
 
 Rate limits are applied per real IP address. When behind Cloudflare, the
 `CF-Connecting-IP` header is used as the real client IP.
