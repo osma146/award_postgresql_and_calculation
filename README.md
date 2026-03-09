@@ -56,7 +56,8 @@ BackendCalculation/
 │       ├── health.py           # GET /health (no auth)
 │       ├── awards.py           # GET /awards, /awards/{code}/classifications, etc.
 │       ├── finder.py           # GET /finder
-│       ├── payslips.py         # POST /payslips/check
+│       ├── calculate.py        # POST /calculate/shift and /period
+│       ├── payslips.py         # POST /payslips/generate and /check
 │       └── autocomplete.py     # GET /autocomplete/awards and /classifications (typeahead)
 │
 ├── finder/
@@ -345,7 +346,11 @@ X-API-Key: your-generated-key-here
 | `GET` | `/awards/{code}/penalties?date=2024-03-15` | Penalty rates for an award |
 | `GET` | `/awards/{code}/allowances?date=2024-03-15` | Allowances for an award |
 | `GET` | `/finder?award=retail&classification=level+2&date=2024-03-15` | Full data bundle in one call |
-| `POST` | `/payslips/check` | Audit a payslip JSON for overpay/underpay |
+| `POST` | `/calculate/shift` | Calculate gross pay for a single shift |
+| `POST` | `/calculate/period` | Calculate total pay across a full pay period |
+| `POST` | `/payslips/generate` | Generate a payslip from shift inputs using live DB rates |
+| `POST` | `/payslips/check` | Audit an existing payslip JSON for overpay/underpay |
+| `GET` | `/awards/{code}/compare?year_from=2022&year_to=2024` | Year-on-year rate comparison |
 | `GET` | `/autocomplete/awards?q=ret` | Live award name search (per keystroke) |
 | `GET` | `/autocomplete/classifications?award=MA000004&q=lev` | Live classification search (per keystroke) |
 

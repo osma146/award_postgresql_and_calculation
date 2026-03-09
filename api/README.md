@@ -287,6 +287,166 @@ curl -H "X-API-Key: your-key" \
 
 ---
 
+### `POST /calculate/shift`
+
+Calculate gross pay for a single shift using live Award rates from the database.
+Applies all 4 salary factors: classification rate lookup, penalty multipliers, overtime tiers, and allowances.
+
+**Request body:**
+```json
+{
+  "award_code": "MA000004",
+  "classification_level": 2,
+  "shift": {
+    "date": "2024-03-10",
+    "day_type": "sunday",
+    "hours_worked": 8.0,
+    "overtime_hours": 0.0,
+    "allowances": [
+      { "name": "Meal allowance", "amount": 17.03, "unit": "per_shift" }
+    ]
+  }
+}
+```
+
+**Day types:** `weekday_ordinary`, `saturday`, `sunday`, `public_holiday`
+
+**Example:**
+```bash
+curl -X POST -H "X-API-Key: your-key" -H "Content-Type: application/json" \
+  -d '{"award_code":"MA000004","classification_level":2,"shift":{"date":"2024-03-10","day_type":"sunday","hours_worked":8.0,"overtime_hours":0.0,"allowances":[]}}' \
+  "https://api.yourdomain.com/calculate/shift"
+```
+
+**Response:**
+```json
+{
+  "award_code": "MA000004",
+  "classification_level": 2,
+  "date": "2024-03-10",
+  "day_type": "sunday",
+  "penalty_applied": "200%",
+  "base_hourly_rate": 26.24,
+  "ordinary_hours": 8.0,
+  "ordinary_rate": 52.48,
+  "ordinary_pay": 419.84,
+  "overtime_hours": 0.0,
+  "overtime_pay": 0.0,
+  "allowances": [],
+  "allowances_total": 0.0,
+  "shift_gross": 419.84
+}
+```
+
+---
+
+### `POST /calculate/period`
+
+Calculate total pay across multiple shifts — a full pay period or fortnight.
+Same body as `/calculate/shift` but with a `shifts` array. Uses the first shift's date for the rate lookup.
+
+**Request body:**
+```json
+{
+  "award_code": "MA000004",
+  "classification_level": 2,
+  "shifts": [
+    { "date": "2024-03-04", "day_type": "weekday_ordinary", "hours_worked": 8.0, "overtime_hours": 0.0, "allowances": [] },
+    { "date": "2024-03-09", "day_type": "saturday",         "hours_worked": 6.0, "overtime_hours": 0.0, "allowances": [] },
+    { "date": "2024-03-10", "day_type": "sunday",           "hours_worked": 8.0, "overtime_hours": 0.0, "allowances": [] }
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "award_code": "MA000004",
+  "classification_level": 2,
+  "base_hourly_rate": 26.24,
+  "shifts": [ ... ],
+  "totals": {
+    "total_ordinary_pay": 419.84,
+    "total_overtime_pay": 0.0,
+    "total_allowances":   0.0,
+    "gross_pay":          839.68
+  }
+}
+```
+
+---
+
+### `POST /payslips/generate`
+
+Generate a full payslip from shift inputs using live Award rates. Calculates correct pay,
+compares it against `paid_gross`, and returns a complete payslip JSON with audit result.
+
+**Request body:**
+```json
+{
+  "payslip_id": "PS-2024-005",
+  "award_code": "MA000004",
+  "employee": {
+    "name": "Alex Brown",
+    "employment_type": "full_time",
+    "classification_level": 3
+  },
+  "pay_period": { "start": "2024-06-03", "end": "2024-06-16", "type": "fortnightly" },
+  "shifts": [
+    { "date": "2024-06-03", "day_type": "weekday_ordinary", "hours_worked": 8.0, "overtime_hours": 0.0, "allowances": [] },
+    { "date": "2024-06-09", "day_type": "sunday",           "hours_worked": 8.0, "overtime_hours": 0.0, "allowances": [] }
+  ],
+  "paid_gross": 450.00,
+  "paid_notes": "Sunday penalty not applied"
+}
+```
+
+**Response:** Full payslip JSON (same structure as the `PS-*.json` files) including `calculated`, `paid`, and `audit` blocks.
+
+---
+
+### `GET /awards/{code}/compare`
+
+Year-on-year rate comparison for all classifications in an award.
+
+**Query parameters:**
+
+| Parameter | Required | Description |
+|---|---|---|
+| `year_from` | Yes | Base year (e.g. 2022) |
+| `year_to` | Yes | Comparison year (e.g. 2024) |
+
+**Example:**
+```bash
+curl -H "X-API-Key: your-key" \
+  "https://api.yourdomain.com/awards/MA000004/compare?year_from=2022&year_to=2024"
+```
+
+**Response:**
+```json
+{
+  "award_code": "MA000004",
+  "year_from": 2022,
+  "year_to": 2024,
+  "classifications": [
+    {
+      "classification": "Retail Employee Level 1",
+      "classification_level": 1,
+      "rate_2022": 21.38,
+      "rate_2024": 23.23,
+      "increase": 1.85,
+      "increase_pct": 8.65
+    }
+  ],
+  "summary": {
+    "total_classifications": 8,
+    "avg_increase_pct": 8.72
+  }
+}
+```
+
+---
+
 ### `POST /payslips/check`
 
 Submit a payslip JSON body and receive a compliance audit result.
