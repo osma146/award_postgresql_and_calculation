@@ -47,6 +47,17 @@ BackendCalculation/
 │   │   └── map-wage-allowance-export-2015.xlsx
 │   └── 2025/ ...               # One folder per year, same 5 files each year
 │
+├── api/
+│   ├── main.py                 # FastAPI app — CORS, rate limiting, router registration
+│   ├── auth.py                 # API key authentication (X-API-Key header)
+│   ├── db.py                   # Database connection context manager
+│   ├── limiter.py              # Shared rate limiter (Cloudflare IP-aware)
+│   └── routes/
+│       ├── health.py           # GET /health (no auth)
+│       ├── awards.py           # GET /awards, /awards/{code}/classifications, etc.
+│       ├── finder.py           # GET /finder
+│       └── payslips.py         # POST /payslips/check
+│
 ├── finder/
 │   ├── finder.py               # Searches DB and writes resolved Award data to output.json
 │   └── input.json              # Edit this with your search terms
@@ -288,6 +299,85 @@ Seven payslip files are included covering a range of correct and error scenarios
 
 ---
 
+## REST API
+
+The FastAPI layer exposes all backend functionality over HTTP. Designed to sit behind
+Cloudflare, which handles HTTPS and DDoS protection.
+
+### Setup
+
+Add two new values to your `.env` file:
+
+```bash
+# Generate a strong key:
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+
+```ini
+API_KEY=your-generated-key-here
+ALLOWED_ORIGINS=https://yourdomain.com
+```
+
+### Running
+
+```bash
+python -m uvicorn api.main:app --reload --port 8000
+```
+
+Interactive docs (Swagger UI) are available at `http://localhost:8000/docs` while running.
+
+### Authentication
+
+Every endpoint (except `/health`) requires the `X-API-Key` header:
+
+```
+X-API-Key: your-generated-key-here
+```
+
+### Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/health` | API + DB status — **no auth required** |
+| `GET` | `/awards?search=retail` | Search awards by name (typo-tolerant) |
+| `GET` | `/awards/{code}/classifications?search=level+2&date=2024-03-15` | Classifications for an award |
+| `GET` | `/awards/{code}/penalties?date=2024-03-15` | Penalty rates for an award |
+| `GET` | `/awards/{code}/allowances?date=2024-03-15` | Allowances for an award |
+| `GET` | `/finder?award=retail&classification=level+2&date=2024-03-15` | Full data bundle in one call |
+| `POST` | `/payslips/check` | Audit a payslip JSON for overpay/underpay |
+
+### Security
+
+| Layer | What it does |
+|---|---|
+| **Cloudflare** | HTTPS termination, DDoS protection, WAF |
+| **API Key** | `X-API-Key` header required on all routes |
+| **CORS** | Only your domain(s) in `ALLOWED_ORIGINS` can call the API |
+| **Rate limiting** | 60 req/min (awards/finder), 30 req/min (finder/payslips) per IP |
+| **Input validation** | All query params validated by FastAPI/Pydantic before hitting the DB |
+| **Parameterised queries** | All SQL uses `%s` placeholders — no SQL injection possible |
+
+### Example calls
+
+```bash
+# Health check (no key needed)
+curl https://api.yourdomain.com/health
+
+# Search awards
+curl -H "X-API-Key: your-key" "https://api.yourdomain.com/awards?search=retail"
+
+# Full finder bundle
+curl -H "X-API-Key: your-key" \
+  "https://api.yourdomain.com/finder?award=retail&classification=level+2&date=2024-03-15"
+
+# Audit a payslip
+curl -X POST -H "X-API-Key: your-key" -H "Content-Type: application/json" \
+  -d @payslips/PS-2024-002.json \
+  "https://api.yourdomain.com/payslips/check"
+```
+
+---
+
 ## Running the Example
 
 ```bash
@@ -384,6 +474,6 @@ Updated annually each July following the Annual Wage Review.
 - [x] Award Data Finder (search → structured JSON output)
 - [x] Payslip generation with real Award rates
 - [x] Payslip checker — detects overpay / underpay / correct
-- [ ] FastAPI REST endpoints
+- [x] FastAPI REST endpoints with API key auth, CORS, and rate limiting
 - [ ] Historical comparison API
 - [ ] React frontend integration

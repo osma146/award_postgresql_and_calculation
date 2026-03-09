@@ -30,8 +30,9 @@ BackendCalculation/
 │   │   ├── map-penalty-export-2015.xlsx
 │   │   └── map-wage-allowance-export-2015.xlsx
 │   └── 2025/  ...
+├── api/                    ← FastAPI REST layer
 ├── awards/                 ← Python calculation engine
-├── .env                    ← Your local DB credentials (never in Git)
+├── .env                    ← Your local credentials (never in Git)
 ├── .env.example            ← Template showing required variables
 └── requirements.txt        ← Python dependencies
 ```
@@ -117,20 +118,27 @@ CREATE INDEX
 
 ### Step 6 — Configure Environment
 
-Copy the example env file and fill in your password:
+Copy the example env file and fill in your values:
 
 ```bash
 copy .env.example .env
 ```
 
-Open `.env` and set your PostgreSQL password:
+Open `.env` and fill in all values:
 
-```
+```ini
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=awards_db
 DB_USER=postgres
 DB_PASSWORD=your_password_here
+
+# API security — generate a strong random key:
+# python -c "import secrets; print(secrets.token_hex(32))"
+API_KEY=your-generated-key-here
+
+# Comma-separated frontend origins allowed to call the API (no trailing slash)
+ALLOWED_ORIGINS=https://yourdomain.com
 ```
 
 ---
@@ -231,21 +239,71 @@ python etl/importer.py --year 2026
 This only touches the new year — all existing data is untouched.
 Re-running the same year is safe: rows are upserted (updated if already exist).
 
-### Step 4 — Commit the New Files
+### Step 4 — Regenerate Example Payslips
+
+After importing new rates, regenerate the example payslip files so they reflect
+the latest Award rates:
 
 ```bash
-git add exel/2026/
-git commit -m "Add 2026 Award rate data"
+python payslips/generator.py
+```
+
+Verify the audit results still look sensible:
+
+```bash
+python payslips/checker.py --summary
+```
+
+### Step 5 — Commit the New Files
+
+```bash
+git add exel/2026/ payslips/
+git commit -m "Add 2026 Award rate data and regenerate example payslips"
 git push
 ```
 
-### Step 5 — Run on Production
+### Step 6 — Run on Production
 
-SSH into the production server (or trigger your deployment pipeline) and run:
+SSH into the production server and run:
 
 ```bash
+git pull
 python etl/importer.py --year 2026
 ```
+
+No API restart is needed — the API reads from the DB on every request.
+
+---
+
+## Annual Maintenance Checklist
+
+Use this checklist each July when new FWC data is released:
+
+- [ ] Download the 5 new Excel files from the Fair Work Commission
+- [ ] Create `exel/{year}/` folder and place files inside
+- [ ] Run `python etl/importer.py --year {year} --dry-run` — check for column errors
+- [ ] Run `python etl/importer.py --year {year}` — import live
+- [ ] Run `python payslips/generator.py` — regenerate example payslips
+- [ ] Run `python payslips/checker.py --summary` — confirm audit results are sensible
+- [ ] Commit: `git add exel/{year}/ payslips/ && git commit -m "Add {year} Award data"`
+- [ ] Push and import on production server
+- [ ] Consider rotating `API_KEY` if it has been in use for more than 12 months
+
+---
+
+## Rotating the API Key
+
+To issue a new API key (recommended annually or if a key is compromised):
+
+```bash
+# Generate a new key
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+
+1. Update `API_KEY` in `.env` on every server where the API runs
+2. Restart the API: `python -m uvicorn api.main:app --port 8000`
+3. Update the key in your frontend / any other clients
+4. Confirm `/health` still returns `{"status": "ok", "db": "connected"}` after restart
 
 ---
 
@@ -320,7 +378,8 @@ It will not drop or modify existing data.
 
 ## Production Deployment Notes
 
-- Never commit `.env` to Git — it contains your database password
+- Never commit `.env` to Git — it contains your database password and API key
 - On the production server, set environment variables directly or use a secrets manager
-- The `DB_PASSWORD` environment variable overrides `.env` if both are set
 - All imports use upsert (`ON CONFLICT ... DO UPDATE`) — re-running is always safe
+- No API restart is needed after importing new data
+- Rotate `API_KEY` annually or immediately if compromised
